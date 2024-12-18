@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Animation Website</title>
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #1e3c72, #2a5298);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      perspective: 1000px;
+    }
+
+    .cube {
+      position: relative;
+      width: 200px;
+      transform-style: preserve-3d;
+      animation: rotate 10s infinite linear;
+    }
+
+    .face {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .front  { transform: rotateY(0deg) translateZ(100px); }
+    .back   { transform: rotateY(180deg) translateZ(100px); }
+    .left   { transform: rotateY(-90deg) translateZ(100px); }
+    .right  { transform: rotateY(90deg) translateZ(100px); }
+    .top    { transform: rotateX(90deg) translateZ(100px); }
+    .bottom { transform: rotateX(-90deg) translateZ(100px); }
+
+    @keyframes rotate {
+      0% { transform: rotateX(0deg) rotateY(0deg); }
+      100% { transform: rotateX(360deg) rotateY(360deg); }
+    }
+    .button-container {
+      position: absolute;
+      bottom: 50px;
+      text-align: center;
+      width: 100%;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: #fff;
+      background: #1e3c72;
+      border: 2px solid #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #fff;
+      color: #1e3c72;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="cube">
+      <div class="face front">Front</div>
+      <div class="face back">Back</div>
+      <div class="face left">Left</div>
+      <div class="face right">Right</div>
+      <div class="face top">Top</div>
+      <div class="face bottom">Bottom</div>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <button id="rotateButton">Pause Animation</button>
+  </div>
+
+  <script>
+    const cube = document.querySelector('.cube');
+    const rotateButton = document.querySelector('#rotateButton');
+    let isPaused = false;
+
+    rotateButton.addEventListener('click', () => {
+      if (isPaused) {
+        cube.style.animationPlayState = 'running';
+        rotateButton.textContent = 'Pause Animation';
+      } else {
+        cube.style.animationPlayState = 'paused';
+        rotateButton.textContent = 'Resume Animation';
+      }
+      isPaused = !isPaused;
+    });
+  </script>
+</body>
+</html>
